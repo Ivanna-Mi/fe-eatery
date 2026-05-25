@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import { BottomNav } from "@/components/layout/BottomNav";
-import { Sidebar } from "@/components/layout/Sidebar";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import { useStore } from "@/store/useStore";
 import { useRouter, usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
@@ -15,9 +16,9 @@ export default function CustomerLayout({
   const pathname = usePathname();
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <Sidebar />
-      <div className="flex-1 md:ml-64 relative min-h-screen">
+    <div className="flex flex-col min-h-screen bg-background">
+      <Navbar />
+      <div className="flex-1 relative">
         <AnimatePresence mode="wait">
           <motion.main
             key={pathname}
@@ -25,12 +26,13 @@ export default function CustomerLayout({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="min-h-full pb-20 md:pb-8"
+            className="min-h-full pb-24 md:pb-0"
           >
             {children}
           </motion.main>
         </AnimatePresence>
       </div>
+      <Footer />
       <BottomNav />
     </div>
   );

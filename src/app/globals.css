@@ -2,38 +2,48 @@
 
 /* Light Mode Variables */
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #F8F3ED; /* Cream Background */
+  --foreground: #2B2B2B; /* Dark Text */
   
-  --primary: #690B22;
-  --primary-foreground: #ffffff;
-  --secondary: #1B4D3E;
-  --secondary-foreground: #ffffff;
+  --primary: #B22222; /* Primary Red */
+  --primary-foreground: #F8F3ED;
+  
+  --secondary: #1F4D3A; /* Primary Green */
+  --secondary-foreground: #F8F3ED;
 
-  --card: #ffffff;
-  --card-foreground: #0f172a;
-  --border: #e2e8f0;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
+  --accent: #D4A373; /* Accent Gold */
+  --accent-foreground: #2B2B2B;
+
+  --card: #EFE7DD; /* Beige */
+  --card-foreground: #2B2B2B;
+  
+  --border: #D4A373; /* Accent Gold for border */
+  --muted: #EFE7DD;
+  --muted-foreground: #6B6B6B;
   
   --radius: 1rem;
 }
 
-/* Dark Mode Variables */
+/* Dark Mode Variables (Keeping it warm and dark, less absolute black) */
 .dark {
-  --background: #09090b;
-  --foreground: #fafafa;
+  --background: #1A1817; 
+  --foreground: #F8F3ED;
   
-  --primary: #8a1532; /* Slightly lighter for dark mode visibility */
+  --primary: #C93333; /* Lighter red for dark mode */
   --primary-foreground: #ffffff;
-  --secondary: #276b57; /* Slightly lighter for dark mode visibility */
+  
+  --secondary: #2A684F; /* Lighter green for dark mode */
   --secondary-foreground: #ffffff;
 
-  --card: #18181b;
-  --card-foreground: #fafafa;
-  --border: #27272a;
-  --muted: #27272a;
-  --muted-foreground: #a1a1aa;
+  --accent: #E6B98A;
+  --accent-foreground: #1A1817;
+
+  --card: #2B2825;
+  --card-foreground: #F8F3ED;
+  
+  --border: #4A443F;
+  --muted: #2B2825;
+  --muted-foreground: #A69F98;
 }
 
 @theme {
@@ -42,11 +52,16 @@
   
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
 
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  
   --color-border: var(--border);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);

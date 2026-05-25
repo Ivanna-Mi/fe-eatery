@@ -22,16 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${plusJakartaSans.variable} h-full antialiased`} suppressHydrationWarning>
-      <body className="min-h-full flex flex-col font-sans bg-background text-foreground transition-colors duration-300">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange={false}
-        >
+      <body className="min-h-full flex flex-col font-sans bg-background text-foreground transition-colors duration-300" suppressHydrationWarning>
+        <ThemeProvider>
           <AuthProvider>
             {children}
-            <Toaster position="top-center" richColors theme="dark" />
+            <Toaster position="top-center" richColors theme="light" />
           </AuthProvider>
         </ThemeProvider>
       </body>

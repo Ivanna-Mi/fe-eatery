@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useStore } from "@/store/useStore";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
-import { ArrowLeft, Utensils, ShoppingBag, Truck, CheckCircle2, Wallet, CreditCard, Banknote, MapPin } from "lucide-react";
+import { ArrowLeft, Utensils, ShoppingBag, CheckCircle2, Wallet, CreditCard, Banknote } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
@@ -19,9 +19,8 @@ export default function CheckoutPage() {
   const { clearCart, cartTotal, discount } = useStore();
 
   const [step, setStep] = React.useState(1);
-  const [orderType, setOrderType] = React.useState<"dine_in" | "take_away" | "delivery" | "">("");
+  const [orderType, setOrderType] = React.useState<"dine_in" | "take_away" | "">("");
   const [tableNo, setTableNo] = React.useState("");
-  const [address, setAddress] = React.useState("");
   const [paymentMethod, setPaymentMethod] = React.useState<"qris" | "e-wallet" | "debit" | "cash" | "">("");
 
   const [isProcessing, setIsProcessing] = React.useState(false);
@@ -34,10 +33,6 @@ export default function CheckoutPage() {
     if (step === 2) {
       if (orderType === "dine_in" && !tableNo) {
         toast.error("Please enter a table number");
-        return;
-      }
-      if (orderType === "delivery" && address.length < 10) {
-        toast.error("Please enter a complete delivery address");
         return;
       }
     }
@@ -145,7 +140,6 @@ export default function CheckoutPage() {
                   {[
                     { id: "dine_in", label: "Dine In", icon: Utensils, desc: "Eat at our Kopitiam" },
                     { id: "take_away", label: "Take Away", icon: ShoppingBag, desc: "Pick up yourself" },
-                    { id: "delivery", label: "Delivery", icon: Truck, desc: "Delivered to you" },
                   ].map((type) => {
                     const Icon = type.icon;
                     const isSelected = orderType === type.id;
@@ -193,7 +187,7 @@ export default function CheckoutPage() {
             >
               <div>
                 <h2 className="text-2xl font-bold mb-2">
-                  {orderType === "dine_in" ? "Where are you seated?" : orderType === "delivery" ? "Delivery Address" : "Pickup Details"}
+                  {orderType === "dine_in" ? "Where are you seated?" : "Pickup Details"}
                 </h2>
                 
                 {orderType === "dine_in" && (
@@ -206,22 +200,6 @@ export default function CheckoutPage() {
                       onChange={(e) => setTableNo(e.target.value)}
                       className="w-full px-4 py-4 rounded-2xl bg-muted border-none text-xl outline-none focus:ring-2 focus:ring-primary text-center font-bold"
                     />
-                  </div>
-                )}
-
-                {orderType === "delivery" && (
-                  <div className="mt-6 space-y-4">
-                    <label className="block text-sm font-semibold text-muted-foreground">Address</label>
-                    <div className="relative">
-                      <MapPin className="absolute left-3 top-4 w-5 h-5 text-muted-foreground" />
-                      <textarea
-                        placeholder="Enter full address..."
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        rows={4}
-                        className="w-full pl-10 pr-4 py-3 rounded-2xl bg-muted border-none outline-none focus:ring-2 focus:ring-primary resize-none"
-                      />
-                    </div>
                   </div>
                 )}
 
@@ -238,8 +216,7 @@ export default function CheckoutPage() {
                 className="w-full mt-8" 
                 size="lg" 
                 disabled={
-                  (orderType === "dine_in" && !tableNo) || 
-                  (orderType === "delivery" && address.length < 10)
+                  (orderType === "dine_in" && !tableNo)
                 }
                 onClick={handleNext}
               >
@@ -302,16 +279,10 @@ export default function CheckoutPage() {
                       <span className="text-sm">Tax (11%)</span>
                       <span className="text-sm font-medium">Rp {((cartTotal() - discount) * 0.11).toLocaleString('id-ID')}</span>
                     </div>
-                    {orderType === "delivery" && (
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm">Delivery Fee</span>
-                        <span className="text-sm font-medium">Rp 15.000</span>
-                      </div>
-                    )}
                     <div className="border-t border-border mt-3 pt-3 flex justify-between items-center">
                       <span className="font-bold">Total Payment</span>
                       <span className="text-xl font-bold text-primary">
-                        Rp {(((cartTotal() - discount) * 1.11) + (orderType === "delivery" ? 15000 : 0)).toLocaleString('id-ID')}
+                        Rp {(((cartTotal() - discount) * 1.11)).toLocaleString('id-ID')}
                       </span>
                     </div>
                   </CardContent>
@@ -325,7 +296,7 @@ export default function CheckoutPage() {
                 isLoading={isProcessing}
                 onClick={handleComplete}
               >
-                Confirm & Pay Rp {(((cartTotal() - discount) * 1.11) + (orderType === "delivery" ? 15000 : 0)).toLocaleString('id-ID')}
+                Confirm & Pay Rp {(((cartTotal() - discount) * 1.11)).toLocaleString('id-ID')}
               </Button>
             </motion.div>
           )}

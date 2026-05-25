@@ -2,11 +2,11 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
-import { PrismaLibSql } from "@prisma/adapter-libsql";
+import Database from "better-sqlite3";
+import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 
-const connectionString = process.env.DATABASE_URL || "file:./dev.db";
-const adapter = new PrismaLibSql({ url: connectionString });
-
+const connection = new Database("dev.db");
+const adapter = new PrismaBetterSqlite3(connection);
 const prisma = new PrismaClient({ adapter });
 
 export const authOptions: NextAuthOptions = {
