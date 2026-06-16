@@ -393,13 +393,18 @@ export default function DashboardPage() {
                   <Card className="overflow-hidden border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 group cursor-pointer h-full flex flex-col rounded-3xl bg-card">
                     <div className="relative h-56 overflow-hidden">
                       <img
-                        src={item.image || "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=500"}
+                        src={
+                          item.image ||
+                          "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=500"
+                        }
                         alt={item.menu_name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-4 left-4 bg-background/90 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
                         <span className="text-yellow-500">★</span>
-                        <span className="text-xs font-bold">{item.category}</span>
+                        <span className="text-xs font-bold">
+                          {item.category}
+                        </span>
                       </div>
                     </div>
                     <CardContent className="p-5 flex-1 flex flex-col justify-between">
@@ -413,7 +418,17 @@ export default function DashboardPage() {
                           Rp {item.price.toLocaleString("id-ID")}
                         </span>
                         <Button
-                          onClick={(e) => handleAddToCart({ id: String(item.menu_id), name: item.menu_name, price: item.price, image: item.image }, e)}
+                          onClick={(e) =>
+                            handleAddToCart(
+                              {
+                                id: String(item.menu_id),
+                                name: item.menu_name,
+                                price: item.price,
+                                image: item.image,
+                              },
+                              e,
+                            )
+                          }
                           className="rounded-full w-10 h-10 p-0 shadow-md hover:scale-105 transition-transform"
                         >
                           <Plus className="w-5 h-5" />
@@ -471,7 +486,7 @@ export default function DashboardPage() {
         </motion.section>
 
         {/* 4. BEST SELLER SECTION */}
-        <motion.section variants={itemVariants} className="space-y-8">
+        {/* <motion.section variants={itemVariants} className="space-y-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <h2 className="text-2xl md:text-3xl font-serif font-bold flex items-center gap-2">
@@ -533,7 +548,7 @@ export default function DashboardPage() {
               </Link>
             ))}
           </div>
-        </motion.section>
+        </motion.section> */}
 
         {/* 5. ABOUT SECTION */}
         <motion.section variants={itemVariants} id="about" className="pt-8">
