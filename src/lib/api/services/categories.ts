@@ -24,7 +24,7 @@ export async function getCategory(id: number) {
   return normalizeCategory(raw as Record<string, unknown>);
 }
 
-export async function createCategory(data: { name: string; description?: string }) {
+export async function createCategory(data: { name: string; description?: string; image?: string }) {
   const raw = await apiFetch<unknown>("/api/categories", {
     method: "POST",
     auth: true,
@@ -35,7 +35,7 @@ export async function createCategory(data: { name: string; description?: string 
 
 export async function updateCategory(
   id: number,
-  data: { name?: string; description?: string },
+  data: { name?: string; description?: string; image?: string },
 ) {
   const raw = await apiFetch<unknown>(`/api/categories/${id}`, {
     method: "PUT",

@@ -100,12 +100,19 @@ function MenuContent() {
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`whitespace-nowrap w-full px-4 py-2.5 rounded-full text-sm font-bold transition-all border ${
+                className={`whitespace-nowrap w-full px-4 py-2.5 rounded-full text-sm font-bold transition-all border flex items-center justify-center gap-2 ${
                   activeCategory === category.id && !searchQuery
                     ? "bg-primary text-primary-foreground border-primary shadow-md shadow-primary/20 scale-105"
                     : "bg-card text-muted-foreground border-border/50 hover:border-primary/50 hover:text-primary"
                 }`}
               >
+                {category.image && (
+                  <img
+                    src={category.image}
+                    alt=""
+                    className="w-5 h-5 rounded-full object-cover shrink-0"
+                  />
+                )}
                 {category.name}
               </button>
             ))}

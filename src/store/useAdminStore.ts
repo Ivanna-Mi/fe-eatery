@@ -95,10 +95,11 @@ interface AdminState {
   addCategory: (category: {
     name: string;
     description?: string;
+    image?: string;
   }) => Promise<void>;
   updateCategory: (
     id: string,
-    category: { name: string; description?: string },
+    category: { name: string; description?: string; image?: string },
   ) => Promise<void>;
   deleteCategory: (id: string, reassignTo?: string) => Promise<void>;
 
@@ -324,6 +325,7 @@ export const useAdminStore = create<AdminState>()(
         const created = await createCategoryOnApi(
           category.name,
           category.description,
+          category.image,
         );
         set((state) => ({ categories: [created, ...state.categories] }));
       },

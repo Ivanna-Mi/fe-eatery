@@ -64,6 +64,7 @@ export function normalizeCategory(raw: Raw): ApiCategory {
     id: num(raw.category_id ?? raw.id),
     name: str(raw.name),
     description: raw.description != null ? str(raw.description) : undefined,
+    image: raw.image != null ? str(raw.image) : undefined,
   };
 }
 

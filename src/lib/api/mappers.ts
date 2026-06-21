@@ -33,10 +33,11 @@ export interface CustomerMenuItem {
 export interface CustomerCategory {
   id: string;
   name: string;
+  image?: string;
 }
 
 export function mapCategoryToCustomer(cat: ApiCategory): CustomerCategory {
-  return { id: String(cat.id), name: cat.name };
+  return { id: String(cat.id), name: cat.name, image: cat.image };
 }
 
 export function mapMenuToCustomer(menu: ApiMenu): CustomerMenuItem {
@@ -81,7 +82,7 @@ export function mapCategoryToAdmin(cat: ApiCategory, itemCount = 0) {
     description: cat.description || "",
     items: itemCount,
     status: "Active",
-    image: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=100",
+    image: cat.image || "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=100",
   };
 }
 

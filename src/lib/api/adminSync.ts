@@ -214,14 +214,14 @@ export async function deleteMenuOnApi(id: string) {
   await menusApi.deleteMenu(parseNumericId(id));
 }
 
-export async function createCategoryOnApi(name: string, description?: string) {
-  const created = await categoriesApi.createCategory({ name, description });
+export async function createCategoryOnApi(name: string, description?: string, image?: string) {
+  const created = await categoriesApi.createCategory({ name, description, image });
   return mapCategoryToAdmin(created, 0);
 }
 
 export async function updateCategoryOnApi(
   id: string,
-  data: { name: string; description?: string },
+  data: { name: string; description?: string; image?: string },
 ) {
   const updated = await categoriesApi.updateCategory(parseNumericId(id), data);
   return mapCategoryToAdmin(updated);
