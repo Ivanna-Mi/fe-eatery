@@ -328,15 +328,10 @@ export default function DashboardPage() {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 pb-6 pt-2">
-            {categories.map((category, index) => {
-              const categoryImages = [
-                "1626804475297-4160aeea1a52", // signatures
-                "1604908176997-125f25cc6f3d", // rice
-                "1610057099443-fde8c4d50f91", // noodles
-                "1525268771113-32d9e9021a97", // toast
-                "1541167760496-1628856ab772", // drinks
-              ];
-              const imgId = categoryImages[index] || categoryImages[0];
+            {categories.map((category) => {
+              const imgSrc =
+                category.image ||
+                "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=200";
               return (
                 <Link
                   href={`/menu?category=${category.id}`}
@@ -348,7 +343,7 @@ export default function DashboardPage() {
                       <div className="w-20 h-20 rounded-full overflow-hidden bg-background p-1 shadow-sm group-hover:scale-110 transition-transform duration-300 shrink-0">
                         <div className="w-full h-full rounded-full overflow-hidden">
                           <img
-                            src={`https://images.unsplash.com/photo-${imgId}?auto=format&fit=crop&q=80&w=200`}
+                            src={imgSrc}
                             alt={category.name}
                             className="w-full h-full object-cover"
                           />
