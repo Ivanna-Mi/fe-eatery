@@ -37,6 +37,32 @@ function MenuContent() {
     }
   };
 
+  const [headerVisible, setHeaderVisible] = React.useState(true);
+  const lastScrollY = React.useRef(0);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const delta = currentY - lastScrollY.current;
+      if (currentY < 100) {
+        setHeaderVisible(true);
+      } else if (delta > 5) {
+        setHeaderVisible(false);
+      } else if (delta < -5) {
+        setHeaderVisible(true);
+      }
+      lastScrollY.current = currentY;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  React.useEffect(() => {
+    const handleTap = () => setHeaderVisible(true);
+    window.addEventListener("click", handleTap);
+    return () => window.removeEventListener("click", handleTap);
+  }, []);
+
   const filteredItems = menuItems.filter(item => {
     const matchesCategory = item.categoryId === activeCategory;
     const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -86,7 +112,11 @@ function MenuContent() {
   return (
     <div className="flex flex-col min-h-screen pt-24 pb-20 md:pb-12">
       {/* Sticky Header */}
-      <div className="sticky top-20 z-30 bg-background/80 backdrop-blur-xl px-4 md:px-8 py-6 border-b border-border/50">
+      <div
+        className={`sticky top-20 z-30 bg-background/80 backdrop-blur-xl px-4 md:px-8 py-6 border-b border-border/50 transition-transform duration-300 ${
+          headerVisible ? "translate-y-0" : "-translate-y-full md:translate-y-0"
+        }`}
+      >
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
             <h1 className="text-3xl font-serif font-bold text-foreground">Today&apos;s <span className="text-primary">Menu</span></h1>
