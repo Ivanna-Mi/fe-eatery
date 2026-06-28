@@ -27,6 +27,16 @@ function MenuContent() {
   const addToCart = useStore((state) => state.addToCart);
   const cart = useStore((state) => state.cart);
 
+  const categoryScrollRef = React.useRef<HTMLDivElement>(null);
+  const handleCategoryWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    const el = categoryScrollRef.current;
+    if (!el || el.scrollWidth <= el.clientWidth) return;
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      e.preventDefault();
+      el.scrollLeft += e.deltaY;
+    }
+  };
+
   const filteredItems = menuItems.filter(item => {
     const matchesCategory = item.categoryId === activeCategory;
     const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -95,7 +105,11 @@ function MenuContent() {
           </div>
 
           {/* Categories */}
-          <div className="flex flex-nowrap gap-3 pb-4 pt-2 overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap">
+          <div
+            ref={categoryScrollRef}
+            onWheel={handleCategoryWheel}
+            className="flex flex-nowrap gap-3 pb-4 pt-2 overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap"
+          >
             {categories.map((category) => (
               <button
                 key={category.id}
