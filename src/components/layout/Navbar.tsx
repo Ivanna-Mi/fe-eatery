@@ -3,13 +3,8 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import {
-  motion,
-  useScroll,
-  useMotionValueEvent,
-  AnimatePresence,
-} from "framer-motion";
-import { Search, ShoppingBag, User, Menu, X } from "lucide-react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { Search, ShoppingBag, User } from "lucide-react";
 import { useStore } from "@/store/useStore";
 import { useSession, signOut } from "next-auth/react";
 import { useAuthStore } from "@/store/useAuthStore";
@@ -33,7 +28,6 @@ export function Navbar() {
 
   const [isScrolled, setIsScrolled] = React.useState(false);
   const { scrollY } = useScroll();
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = React.useState(false);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -189,88 +183,10 @@ export function Navbar() {
                   </Button>
                 </Link>
               )}
-
-              {/* Mobile Menu Toggle */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="md:hidden rounded-full text-foreground"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              >
-                {mobileMenuOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
-              </Button>
             </div>
           </div>
         </div>
       </header>
-
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-background pt-24 px-6 md:hidden"
-          >
-            <nav className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-2xl font-serif font-bold text-foreground hover:text-primary transition-colors py-2 border-b border-border/50"
-                >
-                  {link.name}
-                </Link>
-              ))}
-
-              {!isLoggedIn ? (
-                <Link
-                  href="/login"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="mt-8"
-                >
-                  <Button className="w-full rounded-full py-6 text-lg shadow-sm">
-                    Sign In to Order
-                  </Button>
-                </Link>
-              ) : (
-                <>
-                  <Link
-                    href="/profile"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="mt-8"
-                  >
-                    <Button className="w-full rounded-full py-6 text-lg shadow-sm">
-                      Edit Profile
-                    </Button>
-                  </Link>
-                  <Button
-                    variant="outline"
-                    className="w-full rounded-full mt-4 py-6 text-lg border-primary text-primary"
-                    onClick={async () => {
-                      if (isApiCustomer) {
-                        await apiLogout();
-                        router.push("/login");
-                      } else {
-                        await signOut({ callbackUrl: "/login" });
-                      }
-                      setMobileMenuOpen(false);
-                    }}
-                  >
-                    Sign Out
-                  </Button>
-                </>
-              )}
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 }
