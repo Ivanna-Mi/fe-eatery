@@ -93,9 +93,9 @@ export default function ManagerLoginPage() {
             <form onSubmit={handleLogin} className="space-y-6">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-foreground">
-                  Nama Pengguna (Manager)
+                  Nama Pengguna
                 </label>
-                <div className="relative">
+                <div className="relative mt-2">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                   <input
                     type="text"
@@ -106,6 +106,9 @@ export default function ManagerLoginPage() {
                     className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-background focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
                   />
                 </div>
+                <label className="text-sm font-medium text-foreground">
+                  Password
+                </label>
                 <div className="relative mt-2">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                   <input

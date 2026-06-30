@@ -972,6 +972,24 @@ export default function CheckoutPage() {
                     <h3 className="font-bold text-sm mb-3 text-muted-foreground uppercase tracking-wider">
                       Order Summary
                     </h3>
+                    <div className="space-y-2 mb-3 pb-3 border-b border-border">
+                      {cart.map((item) => (
+                        <div
+                          key={item.id}
+                          className="flex justify-between items-start gap-3 text-sm"
+                        >
+                          <span className="text-muted-foreground">
+                            {item.name}{" "}
+                            <span className="text-foreground font-medium">
+                              x{item.quantity}
+                            </span>
+                          </span>
+                          <span className="font-medium shrink-0">
+                            Rp {(item.price * item.quantity).toLocaleString("id-ID")}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm">Subtotal</span>
                       <span className="text-sm font-medium">
