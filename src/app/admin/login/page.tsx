@@ -142,6 +142,14 @@ export default function AdminLoginPage() {
                 )}
               </Button>
             </form>
+
+            <div className="mt-8 text-center text-sm text-muted-foreground bg-muted/50 p-4 rounded-xl">
+              <p>Demo Credentials:</p>
+              <p>
+                Nama: <strong className="text-foreground">Admin</strong> | Pass:{" "}
+                <strong className="text-foreground">admin123</strong>
+              </p>
+            </div>
           </CardContent>
         </Card>
       </motion.div>
