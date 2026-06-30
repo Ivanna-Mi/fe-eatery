@@ -30,11 +30,11 @@ const statusColors = {
   cancelled: "bg-red-500/10 text-red-600 border-red-200",
 };
 
-const statusBgColors = {
-  pending: "bg-yellow-100 dark:bg-yellow-900/20",
-  confirmed: "bg-green-100 dark:bg-green-900/20",
-  completed: "bg-blue-100 dark:bg-blue-900/20",
-  cancelled: "bg-red-100 dark:bg-red-900/20",
+const statusBorderColors = {
+  pending: "border-l-yellow-400",
+  confirmed: "border-l-green-400",
+  completed: "border-l-blue-400",
+  cancelled: "border-l-red-400",
 };
 
 export default function ReservationsPage() {
@@ -106,18 +106,18 @@ export default function ReservationsPage() {
         {/* Header */}
         <motion.div
           variants={itemVariants}
-          className="flex justify-between items-start"
+          className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-start"
         >
           <div>
-            <h1 className="text-3xl font-serif font-bold mb-2">
+            <h1 className="text-2xl sm:text-3xl font-serif font-bold mb-2">
               My Reservations
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-sm sm:text-base">
               View and manage your cafe table reservations
             </p>
           </div>
-          <Link href="/reservations/new">
-            <Button className="gap-2">
+          <Link href="/reservations/new" className="w-full sm:w-auto">
+            <Button className="gap-2 w-full sm:w-auto">
               <Plus className="w-4 h-4" />
               New Reservation
             </Button>
@@ -183,71 +183,56 @@ export default function ReservationsPage() {
               <Link
                 key={reservation.id}
                 href={`/reservations/${reservation.id}`}
+                className="block"
               >
                 <Card
                   className={cn(
-                    "cursor-pointer transition-all hover:shadow-md border",
-                    statusBgColors[
-                      reservation.status as keyof typeof statusBgColors
+                    "cursor-pointer transition-all hover:shadow-md border-l-4 bg-card",
+                    statusBorderColors[
+                      reservation.status as keyof typeof statusBorderColors
                     ],
                   )}
                 >
-                  <CardContent className="p-6">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                      {/* Left: Basic Info */}
-                      <div className="flex-1 space-y-3">
-                        <div className="flex items-center justify-between md:justify-start md:gap-4">
-                          <div>
-                            <p className="text-sm text-muted-foreground">
-                              Table
-                            </p>
-                            <p className="text-lg font-semibold">
-                              #
-                              {reservation.table?.table_number ??
-                                reservation.table_id}
-                            </p>
-                          </div>
-                          <div>
-                            <p className="text-sm text-muted-foreground">
-                              Capacity
-                            </p>
-                            <p className="text-lg font-semibold">
-                              {reservation.table?.capacity != null
-                                ? `${reservation.table.capacity} seats`
-                                : "—"}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="flex gap-6 text-sm">
-                          <div className="flex items-center gap-2">
-                            <CalendarDays className="w-4 h-4 text-muted-foreground" />
-                            <span>{reservation.reservation_date}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Clock className="w-4 h-4 text-muted-foreground" />
-                            <span>{reservation.reservation_time}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Users className="w-4 h-4 text-muted-foreground" />
-                            <span>{reservation.guest_count} guests</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Right: Status */}
-                      <div className="flex items-center gap-4">
-                        <span
-                          className={cn(
-                            "px-3 py-1 rounded-full text-sm font-medium border",
-                            statusColors[
-                              reservation.status as keyof typeof statusColors
-                            ],
-                          )}
-                        >
-                          {reservation.status.charAt(0).toUpperCase() +
-                            reservation.status.slice(1)}
+                  <CardContent className="p-4 sm:p-6">
+                    {/* Status row: always its own line so it never competes for space */}
+                    <div className="flex items-center justify-between gap-3 mb-3">
+                      <p className="text-sm font-semibold text-muted-foreground">
+                        Table #
+                        {reservation.table?.table_number ??
+                          reservation.table_id}
+                        <span className="font-normal">
+                          {" · "}
+                          {reservation.table?.capacity != null
+                            ? `${reservation.table.capacity} seats`
+                            : "—"}
                         </span>
+                      </p>
+                      <span
+                        className={cn(
+                          "shrink-0 px-3 py-1 rounded-full text-xs font-medium border",
+                          statusColors[
+                            reservation.status as keyof typeof statusColors
+                          ],
+                        )}
+                      >
+                        {reservation.status.charAt(0).toUpperCase() +
+                          reservation.status.slice(1)}
+                      </span>
+                    </div>
+
+                    {/* Meta row: wraps instead of overflowing on narrow screens */}
+                    <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                      <div className="flex items-center gap-1.5">
+                        <CalendarDays className="w-4 h-4 text-muted-foreground shrink-0" />
+                        <span>{reservation.reservation_date}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <Clock className="w-4 h-4 text-muted-foreground shrink-0" />
+                        <span>{reservation.reservation_time}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <Users className="w-4 h-4 text-muted-foreground shrink-0" />
+                        <span>{reservation.guest_count} guests</span>
                       </div>
                     </div>
                   </CardContent>

@@ -177,9 +177,9 @@ export default function ReservationDetailPage() {
         <motion.div variants={itemVariants}>
           <Card>
             <CardHeader>
-              <div className="flex justify-between items-start">
-                <div>
-                  <CardTitle>
+              <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-start">
+                <div className="min-w-0">
+                  <CardTitle className="wrap-break-word">
                     Reservation #
                     {String(reservation.id).slice(0, 8).toUpperCase()}
                   </CardTitle>
@@ -192,7 +192,7 @@ export default function ReservationDetailPage() {
                 </div>
                 <span
                   className={cn(
-                    "px-3 py-1 rounded-full text-sm font-medium border",
+                    "self-start shrink-0 px-3 py-1 rounded-full text-sm font-medium border",
                     statusColors[
                       reservation.status as keyof typeof statusColors
                     ],
@@ -203,20 +203,20 @@ export default function ReservationDetailPage() {
                 </span>
               </div>
             </CardHeader>
-            <CardContent className="space-y-8">
+            <CardContent className="space-y-6 sm:space-y-8">
               {/* Table Info */}
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">
                     Table Number
                   </p>
-                  <p className="text-3xl font-bold">
+                  <p className="text-2xl sm:text-3xl font-bold">
                     #{reservation.table?.table_number ?? reservation.table_id}
                   </p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Capacity</p>
-                  <p className="text-3xl font-bold">
+                  <p className="text-2xl sm:text-3xl font-bold">
                     {reservation.table?.capacity != null
                       ? `${reservation.table.capacity} Seats`
                       : "—"}
@@ -268,7 +268,7 @@ export default function ReservationDetailPage() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
-                    <p className="font-medium text-blue-600">
+                    <p className="font-medium text-blue-600 wrap-break-word">
                       {reservation.customer_email}
                     </p>
                   </div>
@@ -327,12 +327,12 @@ export default function ReservationDetailPage() {
 
               {/* Actions */}
               {canCancel && (
-                <div className="flex gap-3 pt-6 border-t">
+                <div className="flex flex-col-reverse gap-3 pt-6 border-t sm:flex-row">
                   <Button
                     variant="destructive"
                     onClick={handleCancel}
                     disabled={cancelling}
-                    className="flex-1"
+                    className="w-full sm:flex-1"
                   >
                     {cancelling ? (
                       <>
@@ -343,7 +343,7 @@ export default function ReservationDetailPage() {
                       "Cancel Reservation"
                     )}
                   </Button>
-                  <Link href="/reservations" className="flex-1">
+                  <Link href="/reservations" className="w-full sm:flex-1">
                     <Button variant="outline" className="w-full">
                       Back to List
                     </Button>

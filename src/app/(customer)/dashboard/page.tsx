@@ -274,34 +274,36 @@ export default function DashboardPage() {
                   </div>
                 </div>
 
-                <div className="bg-black/20 rounded-2xl p-4 flex items-center gap-6 w-full md:w-auto backdrop-blur-sm">
-                  <div>
-                    <p className="text-secondary-foreground/80 text-xs font-medium mb-1">
-                      Total Points
-                    </p>
-                    <div className="flex items-baseline space-x-1">
-                      <span className="text-3xl font-bold tracking-tight text-accent">
-                        {displayPoints ?? 0}
+                <div className="bg-black/20 rounded-2xl p-4 flex flex-col gap-4 w-full md:w-auto md:flex-row md:items-center md:gap-6 backdrop-blur-sm">
+                  <div className="flex items-center justify-between gap-4 md:gap-6">
+                    <div>
+                      <p className="text-secondary-foreground/80 text-xs font-medium mb-1">
+                        Total Points
+                      </p>
+                      <div className="flex items-baseline space-x-1">
+                        <span className="text-2xl sm:text-3xl font-bold tracking-tight text-accent">
+                          {displayPoints ?? 0}
+                        </span>
+                        <span className="text-sm text-accent/80">pts</span>
+                      </div>
+                    </div>
+                    <div className="w-px h-10 bg-white/20 md:hidden"></div>
+                    <div>
+                      <p className="text-secondary-foreground/80 text-xs font-medium mb-1">
+                        Current Tier
+                      </p>
+                      <span className="text-lg sm:text-xl font-bold tracking-tight text-accent">
+                        {displayTier}
                       </span>
-                      <span className="text-sm text-accent/80">pts</span>
                     </div>
                   </div>
-                  <div className="w-px h-10 bg-white/20"></div>
-                  <div>
-                    <p className="text-secondary-foreground/80 text-xs font-medium mb-1">
-                      Current Tier
-                    </p>
-                    <span className="text-xl font-bold tracking-tight text-accent">
-                      {displayTier}
-                    </span>
-                  </div>
-                  <div className="w-px h-10 bg-white/20"></div>
-                  <Link href="/rewards">
+                  <div className="hidden md:block w-px h-10 bg-white/20"></div>
+                  <Link href="/rewards" className="w-full md:w-auto">
                     <Button
                       variant="ghost"
-                      className="text-white hover:bg-white/10 hover:text-white rounded-full"
+                      className="w-full md:w-auto justify-center bg-white/10 md:bg-transparent text-white hover:bg-white/20 md:hover:bg-white/10 hover:text-white rounded-full"
                     >
-                      Redeem
+                      Redeem Points
                     </Button>
                   </Link>
                 </div>
