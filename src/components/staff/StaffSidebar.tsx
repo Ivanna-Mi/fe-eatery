@@ -10,7 +10,6 @@ import {
   CalendarCheck,
   Armchair,
   Boxes,
-  BarChart3,
   ChevronLeft,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -22,7 +21,6 @@ const menuItems = [
   { icon: CalendarCheck, label: "Reservations", href: "/staff/reservations" },
   { icon: Armchair, label: "Tables", href: "/staff/tables" },
   { icon: Boxes, label: "Inventory", href: "/staff/stock" },
-  { icon: BarChart3, label: "Reports", href: "/staff/reports" },
 ];
 
 export function StaffSidebar({
